@@ -1,0 +1,151 @@
+<!-- contact.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #contact {
+            margin-top: 20px;
+        }
+
+        #contact h2 {
+            color: #3498db;
+            /* Blue color */
+            font-weight: bold;
+        }
+
+        #contact form {
+            margin-top: 20px;
+        }
+
+        #contact label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #contact input,
+        #contact textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        #contact button {
+            background-color: #3498db;
+            /* Blue color */
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+    <title>Your Name - Contact</title>
+</head>
+
+<body>
+    <header>
+        <h1>Niranjan Kumar</h1>
+        <p>Web Developer</p>
+    </header>
+
+    <div class="container">
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>Contact:nirkumar455@gmail.com</p>
+    </footer>
+    <script src="js/script.js"></script>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Perform client-side validation
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var message = document.getElementById("message").value;
+
+            if (!name || !email || !message) {
+                alert("Please fill out all fields before submitting.");
+                return;
+            }
+
+            // Send form data to the server using Fetch API
+            fetch('/submit-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email, message }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Form submitted successfully!");
+                        // Optionally, you can redirect the user or perform other actions
+                    } else {
+                        alert("Error submitting the form. Please try again later.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("An unexpected error occurred. Please try again later.");
+                });
+        });
+    </script>
+
+</body>
+
+</html>
